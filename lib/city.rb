@@ -20,14 +20,14 @@ class City
     returned_cities.each() do |city|
       name = city.fetch("name")
       id = city.fetch("id").to_i
-      cities.push(City.new({:name => name, :id => id}))
+      cities.push(City.new({name: name, id: id}))
     end
     cities
   end
 
   def save
     result = DB.exec("INSERT INTO cities (name) VALUES ('#{@name}') RETURNING id;")
-    @id = result.first().fetch("id").to_i
+    @id = result.first.fetch("id").to_i
   end
 
   def self.find(id)
@@ -35,15 +35,23 @@ class City
     if city
       name = city.fetch("name")
       id = city.fetch("id").to_i
-      City.new({:name => name, :id => id})
+      City.new({name: name, id: id})
     else
       nil
     end
   end
 
-  def update(name)
-    @name = name
-    DB.exec("UPDATE cities SET name = '#{@name}' WHERE id = #{@id};")
+  def update(attributes)
+    if (attributes.has_key?(:name)) && (attributes[:name] != nil)
+      @name = attributes[:name]
+      DB.exec("UPDATE cities SET name = '#{@name}' WHERE id = #{@id};")
+    elsif (attributes.has_key?(:train_name)) && (attributes[:train_name] != nil)
+      train_name = attributes[:train_name]
+      train = DB.exec("SELECT * FROM trains WHERE lower(name)='#{train_name.downcase}';").first
+      if train != nil
+        DB.exec("INSERT INTO cities_trains (train_id, city_id) VALUES (#{train['id'].to_i}, #{@id});")
+      end
+    end
   end
 
   def delete
@@ -61,7 +69,7 @@ class City
       train_id = result.fetch("train_id").to_i
       train = DB.exec("SELECT * FROM trains WHERE id = #{train_id};")
       name = train.first.fetch("name")
-      trains.push(train.new({name: name, id: train_id}))
+      trains.push(Train.new({name: name, id: train_id}))
     end
     trains
   end

@@ -5,11 +5,11 @@
 <h3>Train Destinations</h3>
 
   <% if @train.cities %>
-    <ul>
+    <ol>
       <% @train.cities.each do |city| %>
         <li><a href="/trains/<%= @train.id %>/cities/<%= city.id %>"><%= city.name %></a></li>
       <% end %>
-    </ul>
+    </ol>
   <% else %>
     <p>This train has no scheduled destinations.</p>
   <% end %>

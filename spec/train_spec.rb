@@ -1,4 +1,3 @@
-require 'train'
 require 'spec_helper'
 
 describe '#Train' do
@@ -76,7 +75,9 @@ describe '#Train' do
       city.save()
       city2 = City.new(name: "Seattle")
       city2.save()
-      expect(train.citys).to(eq([city, city2]))
+      train.update(city_name: city.name)
+      train.update(city_name: city2.name)
+      expect(train.cities).to(eq([city, city2]))
     end
   end
 

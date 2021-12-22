@@ -8,6 +8,6 @@ DB = PG.connect({ dbname: 'train_station_test', host: 'db', user: 'postgres', pa
 describe('visits home page', {:type => :feature}) do
   it('should visit the home page') do
     visit('/')
-    expect(page).to have_content("Choo Choo Mfer")
+    expect(page).to have_content("Choo Choo")
   end
 end
