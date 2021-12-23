@@ -1,0 +1,9 @@
+<h3>Available Trains</h3>
+<% if @trains.any? %>
+  <ul> <% @trains.each do |train| %>      
+    <li> <a href="/trains/<%= train.id %>/destination"><strong><%= train.name %></strong></a> </li>
+  <% end %>
+  </ul>
+<% else %>
+  <p>There are currently no Trains to display.</p>
+<% end %>

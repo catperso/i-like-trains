@@ -21,7 +21,7 @@ class Train
   def self.find(id)
     train = DB.exec("SELECT * FROM trains WHERE id = #{id};").first
     name = train.fetch("name")
-    id = train.fetch("id")
+    id = train.fetch("id").to_i
     Train.new({name: name, id: id})
   end
 

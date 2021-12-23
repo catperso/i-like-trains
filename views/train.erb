@@ -4,10 +4,10 @@
 
 <h3>Train Destinations</h3>
 
-  <% if @train.cities %>
+  <% if @train.cities.any? %>
     <ol>
       <% @train.cities.each do |city| %>
-        <li><a href="/trains/<%= @train.id %>/cities/<%= city.id %>"><%= city.name %></a></li>
+        <li><a href="/cities/<%= city.id %>"><%= city.name %></a></li>
       <% end %>
     </ol>
   <% else %>

@@ -10,13 +10,22 @@ DB = PG.connect({ dbname: 'train_station', host: 'db', user: 'postgres', passwor
 
 get '/' do
   @trains = Train.all
-  erb(:trains)
+  erb(:login)
 end
 
 get('/trains') do
   @trains = Train.all
   erb(:trains)
 end
+
+get('/trains/user') do
+  @trains = Train.all
+  erb(:user_trains)
+end
+
+# get('/trains/id/destination') do
+#   erb(:user_destinations)
+# end
 
 get('/trains/sort') do
   erb(:trains)
@@ -66,9 +75,15 @@ end
 
 post('/trains/:id/cities') do
   @train = Train.find(params[:id].to_i())
-  city = City.new({name: params[:city_name], train_id: @train.id})
+  city = City.new({name: params[:city_name]})
   city.save()
+  @train.update(city_name: city.name)
   erb(:train)
+end
+
+get('/cities/:id') do
+  @city = City.find(params[:id].to_i)
+  erb(:city)
 end
 
 patch('/trains/:id/cities/:city_id') do
@@ -84,5 +99,3 @@ delete('/trains/:id/cities/:city_id') do
   @train = Train.find(params[:id].to_i())
   erb(:train)
 end
-
-
