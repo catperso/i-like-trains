@@ -36,6 +36,7 @@ class Train
 
   def self.clear
     DB.exec("DELETE FROM trains *;")
+    DB.exec("DELETE FROM cities_trains *;")
   end
 
   def update(attributes)
@@ -53,6 +54,7 @@ class Train
 
   def delete
     DB.exec("DELETE FROM trains WHERE id = #{@id};")
+    DB.exec("DELETE FROM cities_trains WHERE train_id = #{@id};")
   end
 
   def cities

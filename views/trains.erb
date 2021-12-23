@@ -8,4 +8,9 @@
   <p>There are currently no Trains to display.</p>
 <% end %>
 
-<a href="/trains/new">Add a new Train</a>
+<a href="/trains/new"><button class="btn-success">Add a new Train</button></a>
+
+<form action="/trains" method="post">
+  <input name="_method" type="hidden" value="delete">
+  <button type="submit" class="btn btn-danger">Remove ALL Trains?</button>
+</form>

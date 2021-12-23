@@ -1,7 +1,17 @@
 <h2>City: <%= @city.name %></h2>
-<h3>Train: <%= @city.train.name %></h3>
+<p>Trains in this City:</p>
+<% if @city.trains.any? %>
+    <ul>
+      <% @city.trains.each do |train| %>
+        <li><a href="/trains/<%= train.id %>"><%= train.name %></a></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>This city has no scheduled trains.</p>
+  <% end %>
 
-<form action="/trains/<%= @city.train.id %>/cities/<%= @city.id %>" method="post">
+
+<form action="/cities/<%= @city.id %>" method="post">
   <input name="_method" type="hidden" value="patch">
 
   <label for="name">Rename City</label>
@@ -11,10 +21,10 @@
   <button type="submit">Update City</button>
 </form>
 
-<form action="/trains/<%= @city.train.id %>/cities/<%= @city.id %>" method="post">
+<form action="/cities/<%= @city.id %>" method="post">
   <input name="_method" type="hidden" value="delete">
 
   <button type="submit">Delete City</button>
 </form>
 
-<a href="/trains/<%= @city.train.id %>">Back to <%= @city.train.name %></a>
+<a href="/cities">Back to all cities</a>
