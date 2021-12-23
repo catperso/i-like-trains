@@ -7,9 +7,11 @@
   <% if @train.cities.any? %>
     <ol>
       <% @train.cities.each do |city| %>
-        <li><a href="/cities/<%= city.id %>"><%= city.name %></a></li>
+        <li><a href="/cities/<%= city.id %>/user"><%= city.name %></a></li>
       <% end %>
     </ol>
   <% else %>
     <p>This train has no scheduled destinations.</p>
   <% end %>
+
+  <a href="/trains/user">Return to train list</a>

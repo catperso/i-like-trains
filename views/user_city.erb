@@ -1,0 +1,13 @@
+<h2>City: <%= @city.name %></h2>
+<p>Trains in this City:</p>
+<% if @city.trains.any? %>
+    <ul>
+      <% @city.trains.each do |train| %>
+        <li><a href="/trains/<%= train.id %>/destination"><%= train.name %></a></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>This city has no scheduled trains.</p>
+  <% end %>
+
+<a href="/cities/user">Back to all cities</a>

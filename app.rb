@@ -91,6 +91,11 @@ get('/cities') do
   erb(:cities)
 end
 
+get('/cities/user') do
+  @cities = City.all
+  erb(:user_cities)
+end
+
 delete('/cities') do
   City.clear
   redirect to('/cities')
